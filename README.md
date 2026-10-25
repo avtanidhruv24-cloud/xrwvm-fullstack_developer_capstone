@@ -1,4 +1,4 @@
-# Full Stack Developer Capstone Project
+# fullstack_developer_capstone
 
 ## Project Overview
 
