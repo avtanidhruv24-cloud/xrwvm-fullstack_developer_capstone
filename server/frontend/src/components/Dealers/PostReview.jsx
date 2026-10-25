@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./Dealers.css";
 import "../assets/style.css";
+import "./PostReview.css";
 import Header from "../Header/Header";
 
 const PostReview = () => {
@@ -17,12 +19,11 @@ const PostReview = () => {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // API endpoints
   const dealerUrl = `/djangoapp/dealer/${id}`;
   const reviewUrl = "/djangoapp/add_review";
   const carsUrl = "/djangoapp/get_cars";
 
-  // Fetch dealership details
+  // Fetch dealership details.
   useEffect(() => {
     let cancelled = false;
 
@@ -31,21 +32,27 @@ const PostReview = () => {
         const response = await fetch(dealerUrl);
 
         if (!response.ok) {
-          throw new Error(`Dealership request failed: ${response.status}`);
+          throw new Error(
+            `Dealership request failed: ${response.status}`
+          );
         }
 
         const data = await response.json();
 
-        if (!cancelled && data.status === 200 && data.dealer) {
+        if (cancelled) return;
+
+        if (data.status === 200 && data.dealer) {
           setDealer(data.dealer);
-        } else if (!cancelled) {
+        } else {
           setError("Unable to find dealership details.");
         }
       } catch (err) {
         console.error("Error fetching dealership:", err);
 
         if (!cancelled) {
-          setError("Unable to load dealership details. Please refresh.");
+          setError(
+            "Unable to load dealership details. Please refresh."
+          );
         }
       }
     };
@@ -57,7 +64,7 @@ const PostReview = () => {
     };
   }, [dealerUrl]);
 
-  // Fetch cars for the dropdown
+  // Fetch cars for the dropdown.
   useEffect(() => {
     let cancelled = false;
 
@@ -70,12 +77,13 @@ const PostReview = () => {
         });
 
         if (!response.ok) {
-          throw new Error(`Cars API returned HTTP ${response.status}`);
+          throw new Error(
+            `Cars API returned HTTP ${response.status}`
+          );
         }
 
         const data = await response.json();
 
-        // Django returns { status: 200, cars: [...] }
         const cars = Array.isArray(data)
           ? data
           : Array.isArray(data?.cars)
@@ -84,7 +92,9 @@ const PostReview = () => {
 
         if (!cars) {
           console.error("Unexpected cars API response:", data);
-          throw new Error("The cars API did not return a valid cars array.");
+          throw new Error(
+            "The cars API did not return a valid cars array."
+          );
         }
 
         const validCars = cars.filter(
@@ -95,10 +105,6 @@ const PostReview = () => {
             car.make &&
             car.model
         );
-
-        console.log("Cars API response:", data);
-        console.log("Total cars received:", cars.length);
-        console.log("Valid cars for dropdown:", validCars.length);
 
         if (!cancelled) {
           setCarmodels(validCars);
@@ -131,13 +137,15 @@ const PostReview = () => {
     };
   }, []);
 
-  // Submit a review
+  // Submit a review.
   const postreview = async (event) => {
     event.preventDefault();
     setError("");
 
     if (!review.trim() || !date || !selectedCarId || !year) {
-      setError("Please complete all fields before submitting your review.");
+      setError(
+        "Please complete all fields before submitting your review."
+      );
       return;
     }
 
@@ -175,7 +183,9 @@ const PostReview = () => {
       [firstName, lastName]
         .filter(
           (part) =>
-            part && part !== "null" && part !== "undefined"
+            part &&
+            part !== "null" &&
+            part !== "undefined"
         )
         .join(" ")
         .trim() || username;
@@ -207,14 +217,19 @@ const PostReview = () => {
 
       if (!response.ok || data.status !== 200) {
         throw new Error(
-          data.error || data.message || "Review submission failed."
+          data.error ||
+            data.message ||
+            "Review submission failed."
         );
       }
 
       window.location.href = `/dealer/${id}`;
     } catch (err) {
       console.error("Error submitting review:", err);
-      setError(err.message || "Unable to submit review. Please try again.");
+      setError(
+        err.message ||
+          "Unable to submit review. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -224,107 +239,119 @@ const PostReview = () => {
     <div>
       <Header />
 
-      <div style={{ margin: "5%" }}>
-        <h1 style={{ color: "darkblue" }}>
-          {dealer.full_name || "Loading dealership..."}
-        </h1>
+      <main className="review-page">
+        <section className="review-card">
+          <h1 className="review-title">
+            {dealer.full_name || "Loading dealership..."}
+          </h1>
 
-        {error && (
-          <p role="alert" style={{ color: "red" }}>
-            {error}
-          </p>
-        )}
+          {error && (
+            <p className="review-error" role="alert">
+              {error}
+            </p>
+          )}
 
-        <form onSubmit={postreview}>
-          <div className="input_field">
-            <label htmlFor="review">Your Review</label>
-            <br />
-            <textarea
-              id="review"
-              name="review"
-              cols="50"
-              rows="7"
-              value={review}
-              onChange={(event) => setReview(event.target.value)}
-              placeholder="Write your experience with this dealership..."
-              required
-            />
-          </div>
+          <form
+            className="review-form"
+            onSubmit={postreview}
+          >
+            <div className="review-form-group">
+              <label htmlFor="review">Your Review</label>
 
-          <div className="input_field">
-            <label htmlFor="purchaseDate">Purchase Date</label>
-            <br />
-            <input
-              id="purchaseDate"
-              name="purchaseDate"
-              type="date"
-              value={date}
-              onChange={(event) => setDate(event.target.value)}
-              required
-            />
-          </div>
+              <textarea
+                id="review"
+                name="review"
+                rows={5}
+                value={review}
+                onChange={(event) =>
+                  setReview(event.target.value)
+                }
+                placeholder="Write your experience with this dealership..."
+                required
+              />
+            </div>
 
-          <div className="input_field">
-            <label htmlFor="cars">Car Make and Model</label>
-            <br />
+            <div className="review-form-group">
+              <label htmlFor="purchaseDate">
+                Purchase Date
+              </label>
 
-            <select
-              name="cars"
-              id="cars"
-              value={selectedCarId}
-              onChange={(event) => setSelectedCarId(event.target.value)}
-              required
-              disabled={loadingCars || carmodels.length === 0}
-              style={{
-                display: "block",
-                minWidth: "260px",
-                padding: "10px",
-                color: "#222",
-                backgroundColor: "#fff",
-                border: "1px solid #777",
-              }}
-            >
-              <option value="" disabled>
-                {loadingCars
-                  ? "Loading cars..."
-                  : carmodels.length === 0
-                    ? "No cars available"
-                    : "Choose Car Make and Model"}
-              </option>
+              <input
+                id="purchaseDate"
+                name="purchaseDate"
+                type="date"
+                value={date}
+                onChange={(event) =>
+                  setDate(event.target.value)
+                }
+                required
+              />
+            </div>
 
-              {carmodels.map((car) => (
-                <option key={String(car._id)} value={String(car._id)}>
-                  {car.make} {car.model}
-                  {car.year ? ` (${car.year})` : ""}
+            <div className="review-form-group">
+              <label htmlFor="cars">
+                Car Make and Model
+              </label>
+
+              <select
+                id="cars"
+                name="cars"
+                value={selectedCarId}
+                onChange={(event) =>
+                  setSelectedCarId(event.target.value)
+                }
+                required
+                disabled={
+                  loadingCars || carmodels.length === 0
+                }
+              >
+                <option value="" disabled>
+                  {loadingCars
+                    ? "Loading cars..."
+                    : carmodels.length === 0
+                      ? "No cars available"
+                      : "Choose Car Make and Model"}
                 </option>
-              ))}
-            </select>
 
-            {!loadingCars && carmodels.length > 0 && (
-              <small>{carmodels.length} cars available</small>
-            )}
-          </div>
+                {carmodels.map((car) => (
+                  <option
+                    key={String(car._id)}
+                    value={String(car._id)}
+                  >
+                    {car.make} {car.model}
+                    {car.year ? ` (${car.year})` : ""}
+                  </option>
+                ))}
+              </select>
 
-          <div className="input_field">
-            <label htmlFor="carYear">Car Year</label>
-            <br />
-            <input
-              id="carYear"
-              name="carYear"
-              type="number"
-              value={year}
-              onChange={(event) => setYear(event.target.value)}
-              min="2015"
-              max="2023"
-              step="1"
-              placeholder="2015–2023"
-              required
-            />
-          </div>
+              {!loadingCars && carmodels.length > 0 && (
+                <small>
+                  {carmodels.length} cars available
+                </small>
+              )}
+            </div>
 
-          <div>
+            <div className="review-form-group">
+              <label htmlFor="carYear">Car Year</label>
+
+              <input
+                id="carYear"
+                name="carYear"
+                type="number"
+                value={year}
+                onChange={(event) =>
+                  setYear(event.target.value)
+                }
+                min="2015"
+                max="2023"
+                step="1"
+                placeholder="2015–2023"
+                required
+              />
+            </div>
+
             <button
-              className="postreview"
+              className="review-submit"
               type="submit"
               disabled={
                 submitting ||
@@ -332,11 +359,13 @@ const PostReview = () => {
                 carmodels.length === 0
               }
             >
-              {submitting ? "Submitting..." : "Post Review"}
+              {submitting
+                ? "Submitting..."
+                : "Post Review"}
             </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </section>
+      </main>
     </div>
   );
 };

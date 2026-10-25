@@ -1,0 +1,120 @@
+
+.review-page {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 48px 24px;
+  }
+  
+  .review-card {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  .review-title {
+    margin: 0 0 28px;
+    color: darkblue;
+    font-size: 30px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .review-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+  
+  .review-form-group label {
+    display: block;
+    font-weight: 500;
+    color: #222;
+  }
+  
+  .review-form-group textarea,
+  .review-form-group input,
+  .review-form-group select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #b8bec7;
+    border-radius: 6px;
+    background: #fff;
+    color: #222;
+    font: inherit;
+  }
+  
+  .review-form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+  
+  .review-form-group select {
+    cursor: pointer;
+  }
+  
+  .review-form-group input:focus,
+  .review-form-group select:focus,
+  .review-form-group textarea:focus {
+    outline: 2px solid #1687e8;
+    outline-offset: 1px;
+    border-color: #1687e8;
+  }
+  
+  .review-form-group small {
+    color: #555;
+    font-size: 12px;
+  }
+  
+  .review-error {
+    padding: 12px;
+    margin: 0 0 20px;
+    color: #a40000;
+    background: #fff0f0;
+    border-radius: 6px;
+    overflow-wrap: anywhere;
+  }
+  
+  .review-submit {
+    align-self: flex-start;
+    padding: 11px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #087f8c;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+  }
+  
+  .review-submit:hover {
+    background: #066570;
+  }
+  
+  .review-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 600px) {
+    .review-page {
+      padding: 28px 16px;
+    }
+  
+    .review-title {
+      font-size: 25px;
+    }
+  }
+  
