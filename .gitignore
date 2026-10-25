@@ -142,3 +142,4 @@ server/frontend/build/
 # Local evidence and temporary files
 __pycache__/
 *.pyc
+server/djangoenv/
