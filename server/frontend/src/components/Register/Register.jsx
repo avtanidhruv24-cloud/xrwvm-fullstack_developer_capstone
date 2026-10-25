@@ -5,6 +5,9 @@ import "./Register.css";
 
 function Register() {
   const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -36,6 +39,9 @@ function Register() {
           },
           body: JSON.stringify({
             userName,
+            firstName,
+            lastName,
+            email,
             password,
             confirmPassword,
           }),
@@ -63,7 +69,7 @@ function Register() {
   return (
     <div className="register-container">
       <form className="register-form" onSubmit={handleRegister}>
-        <h2>Create an Account</h2>
+        <h2>Sign-up</h2>
 
         <label htmlFor="register-username">Username</label>
         <input
@@ -71,8 +77,41 @@ function Register() {
           type="text"
           value={userName}
           onChange={(event) => setUserName(event.target.value)}
-          placeholder="Choose a username"
+          placeholder="Username"
           autoComplete="username"
+          required
+        />
+
+        <label htmlFor="register-firstname">First Name</label>
+        <input
+          id="register-firstname"
+          type="text"
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+          placeholder="First Name"
+          autoComplete="given-name"
+          required
+        />
+
+        <label htmlFor="register-lastname">Last Name</label>
+        <input
+          id="register-lastname"
+          type="text"
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+          placeholder="Last Name"
+          autoComplete="family-name"
+          required
+        />
+
+        <label htmlFor="register-email">Email</label>
+        <input
+          id="register-email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="email"
+          autoComplete="email"
           required
         />
 
@@ -82,7 +121,7 @@ function Register() {
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          placeholder="At least 8 characters"
+          placeholder="Password"
           autoComplete="new-password"
           minLength={8}
           required
@@ -98,7 +137,7 @@ function Register() {
           onChange={(event) =>
             setConfirmPassword(event.target.value)
           }
-          placeholder="Enter password again"
+          placeholder="Confirm Password"
           autoComplete="new-password"
           required
         />
