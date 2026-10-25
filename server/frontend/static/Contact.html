@@ -4,31 +4,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Dealerships</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <title>Contact Us - Best Cars Dealership</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #f5f8fc;
+            color: #263238;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .site-navbar {
+            background-color: darkturquoise;
+            min-height: 78px;
+        }
+
+        .site-navbar .navbar-brand,
+        .site-navbar .nav-link {
+            color: #123b4a !important;
+        }
+
+        .site-navbar .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .contact-hero {
+            padding: 55px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #e0f7fa, #eef4ff);
+        }
+
+        .contact-hero h1 {
+            color: #123b4a;
+            font-weight: 700;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 45px 20px 60px;
+        }
+
+        .contact-card {
+            height: 100%;
+            padding: 28px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(24, 53, 72, 0.09);
+        }
+
+        .contact-card h2 {
+            color: #123b4a;
+            font-size: 1.35rem;
+            margin-bottom: 18px;
+        }
+
+        .contact-info p {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .form-control {
+            margin-bottom: 16px;
+        }
+
+        .btn-contact {
+            background: #07858c;
+            color: white;
+            border: none;
+        }
+
+        .btn-contact:hover {
+            background: #066b71;
+            color: white;
+        }
+
+        .site-footer {
+            padding: 22px;
+            text-align: center;
+            background: #123b4a;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light"
-         style="background-color: darkturquoise; height: 1in;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Dealerships</a>
-            <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/about">About Us</a>
-                <a class="nav-link active" href="/contact">Contact Us</a>
+    <nav class="navbar navbar-expand-lg navbar-light site-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">Best Cars</a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact">
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <h1>Contact Us</h1>
-        <p>Welcome to Dealerships. Please contact us for assistance.</p>
-        <p>We are here to help with your dealership enquiries.</p>
-        <a href="/" class="btn btn-info">Return to Home</a>
-    </div>
+    <header class="contact-hero">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p class="lead mt-3 mb-0">
+                Have questions about our dealership or vehicles?
+                We'd be happy to hear from you.
+            </p>
+        </div>
+    </header>
+
+    <main class="contact-container">
+        <div class="row g-4">
+
+            <div class="col-md-5">
+                <section class="contact-card contact-info">
+                    <h2>Get in Touch</h2>
+
+                    <p>
+                        <strong>Dealership:</strong>
+                        Best Cars Dealership
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        <a href="mailto:info@example.com">
+                            info@example.com
+                        </a>
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        <a href="tel:+15550100100">
+                            +1 555-010-0100
+                        </a>
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        North America
+                    </p>
+
+                    <p>
+                        Our team can help you explore vehicle listings
+                        and dealership information.
+                    </p>
+                </section>
+            </div>
+
+            <div class="col-md-7">
+                <section class="contact-card">
+                    <h2>Send Us a Message</h2>
+
+                    <form id="contactForm">
+                        <label for="name" class="form-label">
+                            Full Name
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                        <label for="email" class="form-label">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                        <label for="subject" class="form-label">
+                            Subject
+                        </label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="subject"
+                            name="subject"
+                            placeholder="Enter message subject"
+                            required
+                        >
+
+                        <label for="message" class="form-label">
+                            Message
+                        </label>
+                        <textarea
+                            class="form-control"
+                            id="message"
+                            name="message"
+                            rows="5"
+                            placeholder="Write your message"
+                            required
+                        ></textarea>
+
+                        <button type="submit" class="btn btn-contact">
+                            Send Message
+                        </button>
+
+                        <p id="formNotice" class="mt-3" role="status"></p>
+                    </form>
+                </section>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p class="mb-0">
+            Best Cars Dealership &mdash; We're here to help.
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("contactForm").addEventListener(
+            "submit",
+            function (event) {
+                event.preventDefault();
+                document.getElementById("formNotice").textContent =
+                    "Thank you for your message. This demonstration form does not send messages.";
+            }
+        );
+    </script>
 </body>
 </html>
