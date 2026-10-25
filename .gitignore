@@ -127,3 +127,18 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Node.js dependencies
+node_modules/
+
+# Environment configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Frontend build output
+server/frontend/build/
+
+# Local evidence and temporary files
+__pycache__/
+*.pyc
